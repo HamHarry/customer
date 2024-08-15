@@ -1,0 +1,14 @@
+table {
+  display: flex;
+  flex-direction: column;
+}
+th {
+  width: 400px;
+}
+td {
+  width: 400px;
+  text-align: center;
+}
+img {
+  height: 150px;
+}
