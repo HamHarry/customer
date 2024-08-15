@@ -1,15 +1,35 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
-import data from "./data/mockUpData";
-import { MockUp } from "./model/mockUp";
-import HomePage from "./HomePage";
+import axios from "axios";
+
+export interface User {
+  id: number;
+  fname: string;
+  lname: string;
+  username: string;
+  avatar: string;
+}
 
 const App = () => {
-  const [mockUpData, setMockUpData] = useState<MockUp[]>(data);
+  const [users, setUsers] = useState<User[]>([]);
+
+  const fetchUsersData = useCallback(async () => {
+    const res = await axios.get<User[]>("https://www.melivecode.com/api/users");
+    const usersData = res.data;
+
+    setUsers(usersData);
+  }, []);
+
+  // เรียกใช้ทุกครั้งตอน reload
+  useEffect(() => {
+    fetchUsersData();
+  }, [fetchUsersData]);
 
   return (
     <div>
-      <HomePage mockUpData={mockUpData[0]} />
+      {users.map((item, index) => (
+        <p key={index}>{item.id}</p>
+      ))}
     </div>
   );
 };
