@@ -37,9 +37,14 @@ const App = () => {
     fetchUserBySearch();
   }, [fetchUserBySearch]);
 
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+  };
+
   return (
     <div>
-      <input type="text" onChange={(e) => setSearch(e.target.value)} />
+      <input type="text" onChange={handleChange} />
       <table>
         <thead>
           <th>Id</th>
